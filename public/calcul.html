@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style> 
+    
+  svg {
+    pointer-events: none;
+    margin : 0 auto;
+    left: auto !important;
+  }
+  
+ 
+  img {
+    -webkit-filter: contrast(100%);
+    -webkit-filter: brightness(1);
+  }
+
+  body {
+
+    width : 1200px;
+    margin : 0 auto;
+
+  }
+  
+  #imgInp{
+    margin : 0 auto;
+  }
+  
+  .imageContainer {
+
+     margin : 0 auto;
+     padding : 0px;
+     width : 700px;
+     height : 843px;
+     background-color : lightgray;
+     border-radius : 10px 10px 10px 10px;
+     float : left;
+
+  }
+
+  .menuContainer{
+    margin : 2px;
+    padding : 2px;
+    float : left;
+    overflow : hidden;
+  }
+
+  .fileInput{
+    margin : 0 auto;
+    border : 1px solid black;
+    border-radius : 5px 5px 5px 5px;
+  }
+
+  .sliders{
+    margin-top : 2px;
+    margin-bottom : 2px;
+  }
+
+  .Buttons{
+    overflow : hidden;
+    margin-bottom : 2px;
+  }
+  .submitButton{
+    float : left;
+    text-align : center;
+    background-color : lightgray;
+    border : 1px solid black;
+    width : 120px;
+    border-radius : 5px 0 0 5px;
+  }
+  .clearButton{
+    float : left;
+    text-align : center;
+    background-color : gray;
+    border : 1px solid black;
+    width : 120px;
+    border-radius : 0 5px 5px 0;
+  }
+
+  .pointInput>input{
+    display : none;   tmpCircle = paper.circle(100,100, 4);
+   tmpCircle.attr("fill", "#f00");
+   tmpCircle.attr("stroke", "#000");
+   tmpCircle.attr("fill-opacity",0.5); 
+
+
+  }
+
+  ul{
+    overflow : hidden;
+    margin : 0px;
+    padding : 0px;
+    
+  }
+
+  .sliderUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+  }
+
+  .sliderUl>li:first-child{border-radius : 5px 5px 0 0;}
+  .sliderUl>li:last-child{border-radius : 0 0 5px 5px;}
+  .sliderUl>li:nth-child(2n+1){background-color : lightgray;}
+
+  .inputUl{
+    width : 122px;
+    float :left;
+  }
+
+  .inputUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      background-color : lightgray;
+      color : black;
+  }
+
+
+  .statusUl{
+    width :122px;
+    float : left;
+  }
+
+  .statusUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+  }
+
+  .inputUl>li:first-child{border-radius : 5px 0 0 0;
+                          text-align : center;
+  }
+  .inputUl>li:last-child{border-radius : 0 0 0 5px ;}
+
+  .statusUl>li:first-child{border-radius : 0 5px 0 0;
+                          text-align : center;
+  }
+  .statusUl>li:last-child{border-radius : 0 0 5px 0;}
+
+
+</style> 
+<script type="text/javascript" src="ceplib.js"></script>
+<script type='text/javascript' src='jquery-2.0.3.min.js'></script>
+<script type='text/javascript' src='jquery-ui-1.10.4.custom.min.js'></script>
+<!--<script type='text/javascript' src='prefixfree.min.js'></script>-->
+<script type='text/javascript' src='zoomple.js'></script>
+<script src="raphael-147-min.js"></script>
+<link rel="stylesheet" media="screen" href="styles/zoomple.css" type="text/css" />
+<link rel="stylesheet" media="screen" href="styles/jquery-ui-1.10.4.custom.min.css" type="text/css" />
+
+<script>
+
+var paper;
+
+var measuredObj=[];
+var measuredText=[];
+var objStatus=[];
+var pointName={
+
+  refBallZero : "Ball(0)",
+  refBallTen : "Ball(10)",
+  Po : "Po",
+  S : "S",
+  N : "N",
+  Ar : "Ar",
+  Or : "Or",
+  IsSharp : "Is*",
+  A : "A",
+  SixSharp : "6*",
+  Ii : "Ii",
+  Is : "Is",
+  IiSharp : "Ii*",
+  B : "B",
+  Go : "Go",
+  Me : "Me",
+  Gn : "Gn",
+  Pog : "Pog",
+  TipofNose : "Tip of Nose",
+  TipofLip : "Tip of Lip",
+  UpperLip : "Upper Lip",
+  LowerLip : "Lower Lip"
+
+
+}
+
+var calculationName={
+
+}
+var calculationData={
+
+}
+
+
+var selectedItem;
+
+
+$(function() {
+    $( "#slider_contrast" ).slider({
+    orientation: "horizontal",
+    min: 0,
+    max: 200,
+    value: 100,
+    animate: "slow",
+    slide: function(event, ui) {
+      $('img').css({'-webkit-filter' : 'contrast('+ui.value+'%)'});
+    }
+    });
+});
+
+$(function() {
+    $( "#slider_level" ).slider({
+    orientation: "horizontal",
+    min: 0,
+    max: 200,
+    value: 100,
+    animate: "slow",
+    slide: function(event, ui) {
+      var tmp_val = ui.value/100;
+      $('img').css({'-webkit-filter' : 'brightness('+tmp_val+')'});
+    }
+    });
+});
+
+
+function drawCircle(x,y) {
+        // Creates circle at x = 50, y = 40, with radius 10
+        var circle = paper.circle(x,y, 4);
+
+        // Sets th1e fill attribute of the circle to red (#f00)
+        circle.attr("fill", "#f00");
+
+        // Sets the stroke attribute of the circle to white
+        circle.attr("stroke", "#000");
+
+        //set opacity of circles
+        circle.attr("fill-opacity",0.5);
+
+        return circle;
+}
+
+function drawText(x,y,content){
+  var tmpText = paper.text(x,y,content);
+  tmpText.attr("fill", "#f00");
+  tmpText.attr("font-size","12px");
+  tmpText.attr("fill-opacity",0.5);
+  
+  return tmpText;
+}
+
+function circlePositionChange(circle,x,y){
+  circle.attr('cx',x);
+  circle.attr('cy',y);
+}
+
+function textPositionChange(text,x,y){
+  text.attr('x',x);
+  text.attr('y',y);
+}
+
+
+$(document).ready(function(){
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#orignal').attr('src', e.target.result);
+                $('#atag').attr('href', e.target.result);
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    //event handler 
+
+    $("#imgInp").change(function () {
+        readURL(this);
+        $('#orignal').attr("width",700);
+        $('#atag').zoomple({
+            offset : {x:0,y:0},
+            bgColor : '#839CA1',
+            zoomWidth : 250, 
+            showCursor : true, 
+            zoomHeight : 250,
+            roundedCorners : true,
+            showCursor : true            
+        }); 
+       
+        var p = $('img').position();
+        var p2 = $('.imageContainer').position();
+
+       
+        paper = Raphael(p.left,p.top,700,843);
+
+        $(".imageContainer" ).append($( "svg" ));
+        $(".imageContainer" ).append($( "#zoomple_previewholder" ));
+        $(".imageContainer" ).append($( "#zoomple_image_overlay" ));
+        $( "#slider_contrast" ).slider({value: 100});
+        $('img').css({'-webkit-filter' : 'contrast('+100+'%)'});
+        $( "#slider_level" ).slider({value: 100});
+        $('img').css({'-webkit-filter' : 'brightness('+1+')'});
+
+    });
+
+    $('.imageContainer').click(function(){
+            var position = $(this).offset();
+            var x = event.pageX - position.left;
+            var y = event.pageY - position.top;
+
+         //   $('.statusUl>li#'+selectedItem).css({'background-color' : 'gray'});
+
+            if(objStatus[selectedItem] === "measured"){
+                 circlePositionChange(measuredObj[selectedItem],x,y);
+                 if(selectedItem === "refBallZero" || selectedItem === "refBallTen")
+                  textPositionChange(measuredText[selectedItem],x-20,y-10); 
+                 else
+                  textPositionChange(measuredText[selectedItem],x+10,y-10);
+            }else{
+                measuredObj[selectedItem]=drawCircle(x,y);
+
+                if(selectedItem === "refBallZero" || selectedItem === "refBallTen")
+                  measuredText[selectedItem]=drawText(x-20,y-10,pointName[selectedItem]);
+                else
+                  measuredText[selectedItem]=drawText(x+10,y-10,pointName[selectedItem]);
+
+                objStatus[selectedItem] = "measured";
+            }
+
+    });
+    console.log("alert");
+    for (var key in pointName){
+        console.log(key);
+       $('.inputUl>li#'+key).on('click',function(){
+         $('.inputUl>li').css({'background-color' : 'lightgray'});
+         $('.inputUl>li#'+key).css({'background-color' : 'gray'});
+         selectedItem = key;
+    });
+    }
+
+}); 
+
+</script>
+
+
+
+<title>SNU dentistry Lateral Cephalogram Analysis</title>
+
+</head>
+
+   <body>
+
+
+     <div class="imageContainer">    
+          <a href="#" class="zoomplecross" id="atag"><img id="orignal" src="#" alt="" /></a>
+     </div>
+
+
+    <div class="menuContainer">
+
+      <div class="fileInput">
+        <input id="imgInp" type="file"/>
+      </div>
+
+      <div class="sliders">
+      <ul class="sliderUl">
+        <li>Contrast</li>
+        <li><div id="slider_contrast"></div></li>
+        <li>Brightness</li>
+        <li><div id="slider_level"></div></li>
+      </ul>
+      </div>
+
+
+      <div class="Buttons">
+
+        <div class="submitButton"><label>Submit</label></div>
+
+        <div class="clearButton"><label>Clear</label></div>
+
+      </div>
+
+
+      <div class="pointInput">
+
+
+        <section class = "inputButtons">
+
+          <ul class = "inputUl">
+           <li><label>Points</label></li>
+           <li id="refBallZero"><label>ref. Ball(0)</label></li>
+           <li id="refBallTen"><label>ref. Ball(10)</label></li>
+           <li id="Po"><label>Po</label></li>
+           <li id="S"><label>S</label></li>
+           <li id="N"><label>N</label></li>
+           <li id="Ar"><label>Ar</label></li>
+           <li id="Or"><label>Or</label></li>
+           <li id="IsSharp"><label>Is*</label></li>
+           <li id="A"><label>A</label></li>
+           <li id="SixSharp"><label>6*</label></li>
+           <li id="Ii"><label>Ii</label></li>
+           <li id="Is"><label>Is</label></li>
+           <li id="IiSharp"><label>Ii*</label></li>
+           <li id="B"><label>B</label></li>
+           <li id="Go"><label>Go</label></li>
+           <li id="Me"><label>Me</label></li>
+           <li id="Gn"><label>Gn</label></li>
+           <li id="Pog"><label>Pog</label></li>
+           <li id="TipofNose"><label>Tip of Nose</label></li>
+           <li id="TipofLip"><label>Tip of Lip</label></li>
+           <li id="UpperLip"><label>Upper Lip</label></li>
+           <li id="LowerLip"><label>Lower Lip</label></li>
+         </ul>
+
+         <ul class = "statusUl">
+           <li><label>Status</label></li>
+           <li id="refBallZeroStatus"><label>Not Measured</label></li>
+           <li id="refBallTenStatus"><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+           <li><label>Not Measured</label></li>
+
+         </ul>
+
+
+
+       </section>
+
+
+      </div>
+
+
+
+      </div>
+    
+    
+    </div>
+
+
+   </body>
+
+
+</html>

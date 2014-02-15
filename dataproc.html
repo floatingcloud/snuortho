@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style> 
+    
+  svg {
+    pointer-events: none;
+    margin : 0 auto;
+    left: auto !important;
+  }
+  
+ 
+  img {
+    -webkit-filter: contrast(100%);
+    -webkit-filter: brightness(1);
+  }
+
+  body {
+
+    width : 1200px;
+    margin : 0 auto;
+
+  }
+  
+  #imgInp{
+    margin : 0 auto;
+  }
+  
+  .imageContainer {
+
+     margin : 0 auto;
+     padding : 0px;
+     width : 700px;
+     height : 843px;
+     background-color : lightgray;
+     border-radius : 10px 10px 10px 10px;
+     float : left;
+
+  }
+
+  .menuContainer{
+    margin : 2px;
+    padding : 2px;
+    float : left;
+    overflow : hidden;
+  }
+
+  .fileInput{
+    margin : 0 auto;
+    border : 1px solid black;
+    border-radius : 5px 5px 5px 5px;
+  }
+
+  .sliders{
+    margin-top : 2px;
+    margin-bottom : 2px;
+  }
+
+  .Buttons{
+    overflow : hidden;
+    margin-bottom : 2px;
+  }
+  .submitButton{
+    float : left;
+    text-align : center;
+    background-color : lightgray;
+    border : 1px solid black;
+    width : 120px;
+    border-radius : 5px 0 0 5px;
+  }
+  
+  .submitButton:hover{
+    background-color : gray;
+    font : 12px;
+    border : 2px solid black;
+  }
+
+
+
+  .clearButton{
+    float : left;
+    text-align : center;
+    background-color : gray;
+    border : 1px solid black;
+    width : 120px;
+    border-radius : 0 5px 5px 0;
+  }
+
+  .clearButton:hover{
+    background-color : lightgray;
+    font : 12px;
+    border : 2px solid black;
+  }
+
+
+  .pointInput>input{
+    display : none;   tmpCircle = paper.circle(100,100, 4);
+   tmpCircle.attr("fill", "#f00");
+   tmpCircle.attr("stroke", "#000");
+   tmpCircle.attr("fill-opacity",0.5); 
+
+
+  }
+
+  ul{
+    overflow : hidden;
+    margin : 0px;
+    padding : 0px;
+    
+  }
+
+  .sliderUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+  }
+
+  .sliderUl>li:first-child{border-radius : 5px 5px 0 0;}
+  .sliderUl>li:last-child{border-radius : 0 0  k+point.x5px 5px;}
+  .sliderUl>li:nth-child(2n+1){background-color : lightgray;}
+
+  .inputUl{
+    width : 122px;
+    float :left;
+  }
+
+  .inputUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      background-color : lightgray;
+      color : black;
+  }
+
+
+  .statusUl{
+    width :122px;
+    float : left;
+  }
+
+  .statusUl>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      text-align : center;
+  }
+
+  .inputUl>li:first-child{border-radius : 5px 0 0 0;
+                          text-align : center;
+  }
+  .inputUl>li:last-child{border-radius : 0 0 0 5px ;}
+
+  .statusUl>li:first-child{border-radius : 0 5px 0 0;
+                          text-align : center;
+  }
+  .statusUl>li:last-child{border-radius : 0 0 5px 0;}
+// result page css setting
+  .resultPage{
+    margin : 2px;
+    padding : 2px;
+    float : left;
+    overflow : hidden;
+
+  }
+  .resultCont{
+    float :left ;
+  }
+
+  .resultCont>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      background-color : lightgray;
+      color : black;
+  }
+
+
+  .resultValue{
+    width :100px;
+    float : left;
+  }
+
+  .resultValue>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      text-align : center;
+  }
+
+  .deviation{
+    width :100px;
+    float : left;
+  }
+
+  .deviation>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      text-align : center;
+  }
+
+
+  .mean{
+    width :100px;
+    float : left;
+  }
+
+  .mean>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      text-align : center;
+  }
+
+
+
+  .sd{
+    width :100px;
+    float : left;
+  }
+
+  .sd>li{
+      list-style : none;
+      border : 1px solid black;
+      padding : 2px;
+      text-align : center;
+  }
+
+ .resultCont>li:first-child{border-radius : 5px 0 0 0;
+                          text-align : center;
+  }
+  .resultCont>li:last-child{border-radius : 0 0 0 5px ;}
+
+  .sd>li:first-child{border-radius : 0 5px 0 0;
+                          text-align : center;
+  }
+  .sd>li:last-child{border-radius : 0 0 5px 0;}
+
+  .resultButton{
+    width : 80px;
+    height : 40px;
+    float : left;
+    background-color : lightgray;
+    border : 1px solid black;
+    padding : 2px;
+    text-align : center;
+    border-radius : 5px 5px 5px 5px;
+  }
+  .resultButton:hover{
+    background-color : lightgray;
+    font : 12px;
+    border : 2px solid black;
+  }
+
+
+
+</style> 
+<script type="text/javascript" src="ceplib.js"></script>
+<script type='text/javascript' src='jquery-2.0.3.min.js'></script>
+<script type='text/javascript' src='jquery-ui-1.10.4.custom.min.js'></script>
+<!--<script type='text/javascript' src='prefixfree.min.js'></script>-->
+<script type='text/javascript' src='zoomple.js'></script>
+<script src="raphael-147-min.js"></script>
+<link rel="stylesheet" media="screen" href="styles/zoomple.css" type="text/css" />
+<link rel="stylesheet" media="screen" href="styles/jquery-ui-1.10.4.custom.min.css" type="text/css" />
+
+<script>
+
+var paper;
+
+var measuredObj=[];
+var measuredText=[];
+var objStatus=[];
+var pointName={
+
+  refBallZero : "Ball(0)",
+  refBallTen : "Ball(10)",
+  Po : "Po",
+  S : "S",
+  N : "N",
+  Ar : "Ar",
+  Or : "Or",
+  IsSharp : "Is*",
+  A : "A",
+  SixSharp : "6*",
+  Ii : "Ii",
+  Is : "Is",
+  IiSharp : "Ii*",
+  B : "B",
+  Go : "Go",
+  Me : "Me",
+  Gn : "Gn",
+  Pog : "Pog",
+  TipofNose : "Tip of Nose",
+  TipofJaw : "Tip of Jaw",
+  UpperLip : "Upper Lip",
+  LowerLip : "Lower Lip"
+
+}
+
+var calculationName={
+
+  saddleAngle : "Saddle Angle(N,S,Ar)",
+  articularAngle : "Articular Angle(S,Ar,Go)",
+  gonialAngle : "Gonial Angle(Ar,Go,Me)",
+  bjorkSum : "(Bjork) Sum",
+  antCranialBaseLength : "Ant. Cranial Base length(N-S)",
+  posCranialBaseLength : "Pos. Cranial Base Length(S-Ar)",
+  upperGonialAngle : "Upper Gonial anlge: N-Go-Ar",
+  lowerGonialAngle : "Lower Gonial angle: N-Go-Me",
+  ramusHeight : "Ramus height(Ar-Go)",
+  bodyLength : "Body length(Go-Me)",
+  MnBodyToAntCranialBaseRatio : "Mn Body to Ant. Cranial Base Ratio(Go-Me/Na-S)",
+  sNA : "SNA",
+  sNB : "SNB",
+  aNB : "ANB",
+  snGoGn : "SN-GoGn(angle)",
+  facialDepth: "Facial depth(N-Go)",
+  facialLengthOnYx : "Facial length on Y-axis(S-Gn)",
+  yxToSn : "Y-axis to SN(N,S,Gn)",
+  posFacialHeight : "Pos. Facial height(S-Go)",
+  antFacialHeight : "Ant. Facial height(N-Me)",
+  facialHeightRatio : "Facial height ratio %",
+  facialPlane: "Facial plane(S,N,Pog)",
+  facialConvexity : "Facial convexity(N,A,Pog)",
+  fMA : "FMA(F Mn plane Angle)",
+  fMIA : "FMIA(F Mn Incisor plane Angle)",
+  iMPA : "IMPA(Incisor Mn Plane Angle)",
+  occToGoMe : "Occ PL to Go Me(angle)",
+  interincisalAngle : "Interincisal Angle",
+  l1ToMnPlane : "L1 to Mn plane(=Go-Me)",
+  u1ToFHPlane : "U1 to FH plane(=Po-Or)",
+  u1ToSNPlane : "U1 to SN plane(=S-N)",
+  u1ToFacialPlane : "U1 to Facial plane(=N-Pog)",
+  l1ToFacialPlane : "L1 to Facial plane(=N-Pog)",
+  rickettsUpperLip : "Facial Esthetic line(Ricketts): Upper lip",
+  rickettsLowerLip : "Facial Esthetic line(Ricketts): Lower lip",
+
+}
+var calculationData={
+
+  saddleAngle : 0,
+  articularAngle : 0,
+  gonialAngle : 0,
+  bjorkSum : 0,
+  antCranialBaseLength : 0,
+  posCranialBaseLength : 0,
+  upperGonialAngle : 0,
+  lowerGonialAngle : 0,
+  ramusHeight : 0,
+  bodyLength : 0,
+  MnBodyToAntCranialBaseRatio : 0,
+  sNA : 0,
+  sNB : 0,
+  aNB : 0,
+  snGoGn : 0,
+  facialDepth: 0,
+  facialLengthOnYx : 0,
+  yxToSn : 0,
+  posFacialHeight : 0,
+  antFacialHeight : 0,
+  facialHeightRatio : 0,
+  facialPlane: 0,
+  facialConvexity : 0,
+  fMA : 0,
+  fMIA : 0,
+  iMPA : 0,
+  occToGoMe : 0,
+  interincisalAngle : 0,
+  l1ToMnPlane : 0,
+  u1ToFHPlane : 0,
+  u1ToSNPlane : 0,
+  u1ToFacialPlane : 0,
+  l1ToFacialPlane : 0,
+  rickettsUpperLip : 0,
+  rickettsLowerLip : 0,
+//---------------residual-------------------//
+  sNGn : 0,
+  nGnGo : 0,
+  poOrMe : 0,
+  orMeGo : 0,
+  orPoIisharp : 0,
+  poIisharpIi : 0,
+  sixsharpImMe : 0,
+  imMeGo : 0,
+  isissharpIisharp : 0,
+  issharpIisharpIi : 0,
+  orPoIs : 0,
+  poIsIssharp : 0,
+  nSIs : 0,
+  sIsIssharp : 0,
+  radioDistanceBtnTenBalls : 0,
+  realDistanceBtnTenBalls : 52.8,
+  radioRealimageRatio : 0
+
+}
+
+var meanValue={
+
+  saddleAngle : 124.65,
+  articularAngle : 147.07,
+  gonialAngle : 122.38,
+  bjorkSum : 393.97,
+  antCranialBaseLength : 71.80,
+  posCranialBaseLength : 40.08,
+  upperGonialAngle : 45.73,
+  lowerGonialAngle : 77.17,
+  ramusHeight : 54.92,
+  bodyLength : 78.72,
+  MnBodyToAntCranialBaseRatio : 1.08,
+  sNA : 81.77,
+  sNB : 80.22,
+  aNB : 1.78,
+  snGoGn : 32.81,
+  facialDepth: 130.94,
+  facialLengthOnYx : 139.47,
+  yxToSn : 70.92,
+  posFacialHeight : 90.82,
+  antFacialHeight : 136.42,
+  facialHeightRatio : 66.37,
+  facialPlane: 81.75,
+  facialConvexity : 0.90,
+  fMA : 26.78,
+  fMIA : 5.08,
+  iMPA : 90.20,
+  occToGoMe : 19.77,
+  interincisalAngle : 126.19,
+  l1ToMnPlane : 48.25,
+  u1ToFHPlane : 116.52,
+  u1ToSNPlane : 109.31,
+  u1ToFacialPlane : 8.84,
+  l1ToFacialPlane : 5.02,
+  rickettsUpperLip : -1.04,
+  rickettsLowerLip : 0.26
+
+}
+
+
+var sDeviation={
+
+  saddleAngle : 5.79,
+  articularAngle : 5.79,
+  gonialAngle : 4.88,
+  bjorkSum : 5.73,
+  antCranialBaseLength : 2.79,
+  posCranialBaseLength : 3.41,
+  upperGonialAngle : 3.57,
+  lowerGonialAngle : 4.06,
+  ramusHeight : 4.51,
+  bodyLength : 5.56,
+  MnBodyToAntCranialBaseRatio : 0.14,
+  sNA : 5.98,
+  sNB : 5.31,
+  aNB : 2.02,
+  snGoGn : 4.28,
+  facialDepth: 6.31,
+  facialLengthOnYx : 6.00,
+  yxToSn : 3.36,
+  posFacialHeight : 8.15,
+  antFacialHeight : 6.78,
+  facialHeightRatio : 5.07,
+  facialPlane: 1.18,
+  facialConvexity : 5.10,
+  fMA : 1.79,
+  fMIA : 5.08,
+  iMPA : 5.37,
+  occToGoMe : 4.10,
+  interincisalAngle : 8.00,
+  l1ToMnPlane : 3.36,
+  u1ToFHPlane : 6.00,
+  u1ToSNPlane : 6.00,
+  u1ToFacialPlane : 3.22,
+  l1ToFacialPlane : 2.88,
+  rickettsUpperLip : 2.23,
+  rickettsLowerLip : 2.60 
+
+}
+
+
+
+
+var selectedItem;
+
+
+$(function() {
+    $( "#slider_contrast" ).slider({
+    orientation: "horizontal",
+    min: 0,
+    max: 200,
+    value: 100,
+    animate: "slow",
+    slide: function(event, ui) {
+      $('img').css({'-webkit-filter' : 'contrast('+ui.value+'%)'});
+    }
+    });
+});
+
+$(function() {
+    $( "#slider_level" ).slider({
+    orientation: "horizontal",
+    min: 0,
+    max: 200,
+    value: 100,
+    animate: "slow",
+    slide: function(event, ui) {
+      var tmp_val = ui.value/100;
+      $('img').css({'-webkit-filter' : 'brightness('+tmp_val+')'});
+    }
+    });
+});
+
+
+function returnPoint(circle){
+
+  var point = {};
+  point.x = circle.attr("cx");
+  point.y = circle.attr("cy");
+
+  return point;
+
+}
+
+function dataCalculation(){
+      var Im = {};
+       calculationData.saddleAngle = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['S']),returnPoint(measuredObj['Ar']));
+       calculationData.articularAngle = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['Ar']),returnPoint(measuredObj['Go']));
+       calculationData.gonialAngle = find_angle(returnPoint(measuredObj['Ar']),returnPoint(measuredObj['Go']),returnPoint(measuredObj['Me']));
+       calculationData.bjorkSum = calculationData.saddleAngle + calculationData.articularAngle + calculationData.gonialAngle;
+       calculationData.radioDistanceBtnTenBalls = lineDistance(returnPoint(measuredObj['refBallZero']),returnPoint(measuredObj['refBallTen']));
+       calculationData.radioRealimageRatio = calculationData.realDistanceBtnTenBalls / calculationData.radioDistanceBtnTenBalls;
+       calculationData.antCranialBaseLength = lineDistance(returnPoint(measuredObj['N']),returnPoint(measuredObj['S']))*calculationData.radioRealimageRatio; 
+       calculationData.posCranialBaseLength = lineDistance(returnPoint(measuredObj['S']),returnPoint(measuredObj['Ar']))*calculationData.radioRealimageRatio; 
+       calculationData.upperGonialAngle = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['Go']),returnPoint(measuredObj['Ar']));
+       calculationData.lowerGonialAngle = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['Go']),returnPoint(measuredObj['Me']));
+       calculationData.ramusHeight = lineDistance(returnPoint(measuredObj['Ar']),returnPoint(measuredObj['Go']))*calculationData.radioRealimageRatio;
+       calculationData.bodyLength = lineDistance(returnPoint(measuredObj['Go']),returnPoint(measuredObj['Me']))*calculationData.radioRealimageRatio;
+       calculationData.MnBodyToAntCranialBaseRatio = calculationData.bodyLength / calculationData.antCranialBaseLength;
+       calculationData.sNA = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['N']),returnPoint(measuredObj['A']));
+       calculationData.sNB = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['N']),returnPoint(measuredObj['B'])); 
+       calculationData.aNB = calculationData.sNA - calculationData.sNB;
+       calculationData.sNGn = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['N']),returnPoint(measuredObj['Gn']));
+       calculationData.nGnGo = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['Gn']),returnPoint(measuredObj['Go']));
+       calculationData.snGoGn = 180 - calculationData.sNGn - calculationData.nGnGo;
+       calculationData.facialDepth = lineDistance(returnPoint(measuredObj['N']),returnPoint(measuredObj['Go']))*calculationData.radioRealimageRatio;
+       calculationData.facialLengthOnYx = lineDistance(returnPoint(measuredObj['S']),returnPoint(measuredObj['Gn']))*calculationData.radioRealimageRatio;
+       calculationData.yxToSn = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['S']),returnPoint(measuredObj['Gn']));
+       calculationData.posFacialHeight = lineDistance(returnPoint(measuredObj['S']),returnPoint(measuredObj['Go']))*calculationData.radioRealimageRatio;
+       calculationData.antFacialHeight = lineDistance(returnPoint(measuredObj['N']),returnPoint(measuredObj['Me']))*calculationData.radioRealimageRatio;
+       calculationData.facialHeightRatio = calculationData.posFacialHeight / calculationData.antFacialHeight * 100; 
+       calculationData.facialPlane = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['N']),returnPoint(measuredObj['Pog']));
+       calculationData.facialConvexity = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['A']),returnPoint(measuredObj['Pog'])) - 180;
+       calculationData.poOrMe = find_angle(returnPoint(measuredObj['Po']),returnPoint(measuredObj['Or']),returnPoint(measuredObj['Me']));
+       calculationData.orMeGo = find_angle(returnPoint(measuredObj['Or']),returnPoint(measuredObj['Me']),returnPoint(measuredObj['Go']));
+       calculationData.fMA = 180 - calculationData.poOrMe - calculationData.orMeGo;
+       calculationData.orPoIisharp = find_angle(returnPoint(measuredObj['Or']),returnPoint(measuredObj['Po']),returnPoint(measuredObj['IiSharp']));
+       calculationData.poIisharpIi = find_angle(returnPoint(measuredObj['Po']),returnPoint(measuredObj['IiSharp']),returnPoint(measuredObj['Ii']));
+       calculationData.fMIA = 180 - calculationData.orPoIisharp - calculationData.poIisharpIi; 
+       calculationData.iMPA = 180 - calculationData.fMA - calculationData.fMIA;
+       Im.x = (measuredObj['Ii'].attr("cx") + measuredObj['Is'].attr("cx"))/2;
+       Im.y = (measuredObj['Ii'].attr("cy") + measuredObj['Is'].attr("cy"))/2;
+       calculationData.sixsharpImMe = find_angle(returnPoint(measuredObj['SixSharp']),Im,returnPoint(measuredObj['Me']));
+       calculationData.imMeGo = find_angle(Im,returnPoint(measuredObj['Me']),returnPoint(measuredObj['Go']));
+       calculationData.occToGoMe = 180 - calculationData.sixsharpImMe - calculationData.imMeGo; 
+       calculationData.isissharpIisharp = find_angle(returnPoint(measuredObj['Is']),returnPoint(measuredObj['IsSharp']),returnPoint(measuredObj['IiSharp']));
+       calculationData.issharpIisharpIi = find_angle(returnPoint(measuredObj['IsSharp']),returnPoint(measuredObj['IiSharp']),returnPoint(measuredObj['Ii']));
+       calculationData.interincisalAngle = 180 - calculationData.isissharpIisharp - calculationData.issharpIisharpIi; 
+       calculationData.l1ToMnPlane = pointLineDistance(returnPoint(measuredObj['Go']),returnPoint(measuredObj['Me']),returnPoint(measuredObj['Ii']))*calculationData.radioRealimageRatio;
+       calculationData.orPoIs = find_angle(returnPoint(measuredObj['Or']),returnPoint(measuredObj['Po']),returnPoint(measuredObj['Is']));
+       calculationData.poIsIssharp = find_angle(returnPoint(measuredObj['Po']),returnPoint(measuredObj['Is']),returnPoint(measuredObj['IsSharp']));
+       calculationData.u1ToFHPlane = 180 - calculationData.orPoIs - calculationData.poIsIssharp; 
+       calculationData.nSIs = find_angle(returnPoint(measuredObj['N']),returnPoint(measuredObj['S']),returnPoint(measuredObj['Is']));
+       calculationData.sIsIssharp = find_angle(returnPoint(measuredObj['S']),returnPoint(measuredObj['Is']),returnPoint(measuredObj['IsSharp']));
+       calculationData.u1ToSNPlane = 180 - calculationData.nSIs - calculationData.sIsIssharp; 
+       calculationData.u1ToFacialPlane = pointLineDifference(returnPoint(measuredObj['N']),returnPoint(measuredObj['Pog']),returnPoint(measuredObj['Is']))*calculationData.radioRealimageRatio;
+       calculationData.l1ToFacialPlane = pointLineDifference(returnPoint(measuredObj['N']),returnPoint(measuredObj['Pog']),returnPoint(measuredObj['Ii']))*calculationData.radioRealimageRatio;
+       calculationData.rickettsUpperLip = pointLineXlocationDifference(returnPoint(measuredObj['TipofNose']),returnPoint(measuredObj['TipofJaw']),returnPoint(measuredObj['UpperLip']))*calculationData.radioRealimageRatio;
+       calculationData.rickettsLowerLip = pointLineXlocationDifference(returnPoint(measuredObj['TipofNose']),returnPoint(measuredObj['TipofJaw']),returnPoint(measuredObj['LowerLip']))*calculationData.radioRealimageRatio;
+
+}
+
+function drawCircle(x,y) {
+        // Creates circle at x = 50, y = 40, with radius 10
+        var circle = paper.circle(x,y, 4);
+
+        // Sets th1e fill attribute of the circle to red (#f00)
+        circle.attr("fill", "#f00");
+
+        // Sets the stroke attribute of the circle to white
+        circle.attr("stroke", "#000");
+
+        //set opacity of circles
+        circle.attr("fill-opacity",0.5);
+
+        return circle;
+}
+
+function drawText(x,y,content){
+  var tmpText = paper.text(x,y,content);
+  tmpText.attr("fill", "#f00");
+  tmpText.attr("font-size","12px");
+  tmpText.attr("fill-opacity",0.5);
+  
+  return tmpText;
+}
+
+function circlePositionChange(circle,x,y){
+  circle.attr('cx',x);
+  circle.attr('cy',y);
+}
+
+function textPositionChange(text,x,y){
+  text.attr('x',x);
+  text.attr('y',y);
+}
+
+
+$(document).ready(function(){
+
+    
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#orignal').attr('src', e.target.result);
+                $('#atag').attr('href', e.target.result);
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+      
+    //result hide
+    $('.resultPage').hide();
+
+
+    //event handler 
+
+    $("#imgInp").change(function () {
+        readURL(this);
+        $('#orignal').attr("width",700);
+        $('#atag').zoomple({
+            offset : {x:0,y:0},
+            bgColor : '#839CA1',
+            zoomWidth : 250, 
+            showCursor : true, 
+            zoomHeight : 250,
+            roundedCorners : true,
+            showCursor : true            
+        }); 
+       
+        var p = $('img').position();
+        var p2 = $('.imageContainer').position();
+
+       
+        paper = Raphael(p.left,p.top,700,843);
+
+        $(".imageContainer" ).append($( "svg" ));
+        $(".imageContainer" ).append($( "#zoomple_previewholder" ));
+        $(".imageContainer" ).append($( "#zoomple_image_overlay" ));
+        $( "#slider_contrast" ).slider({value: 100});
+        $('img').css({'-webkit-filter' : 'contrast('+100+'%)'});
+        $( "#slider_level" ).slider({value: 100});
+        $('img').css({'-webkit-filter' : 'brightness('+1+')'});
+
+    });
+
+    $('.imageContainer').click(function(){
+            var position = $(this).offset();
+            var x = event.pageX - position.left;
+            var y = event.pageY - position.top;
+
+            $('.statusUl>li#'+selectedItem+'>label').html("Measured!");
+            $('.statusUl>li#'+selectedItem).css({'background-color' : 'gray'});
+
+
+            if(objStatus[selectedItem] === "measured"){
+                 circlePositionChange(measuredObj[selectedItem],x,y);
+                 if(selectedItem === "refBallZero" || selectedItem === "refBallTen")
+                  textPositionChange(measuredText[selectedItem],x-20,y-10); 
+                 else
+                  textPositionChange(measuredText[selectedItem],x+10,y-10);
+            }else{
+                measuredObj[selectedItem]=drawCircle(x,y);
+                
+                if(selectedItem === "refBallZero" || selectedItem === "refBallTen")
+                  measuredText[selectedItem]=drawText(x-20,y-10,pointName[selectedItem]);
+                else
+                  measuredText[selectedItem]=drawText(x+10,y-10,pointName[selectedItem]);
+
+                objStatus[selectedItem] = "measured";
+            }
+
+    });
+
+    $('.inputUl>li#refBallZero').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#refBallZero').css({'background-color' : 'gray'});
+        selectedItem = "refBallZero";
+        
+    });
+
+    $('.inputUl>li#refBallTen').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#refBallTen').css({'background-color' : 'gray'});
+        selectedItem = "refBallTen";
+    });
+
+     $('.inputUl>li#Po').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Po').css({'background-color' : 'gray'});
+        selectedItem = "Po";
+    });
+
+     $('.inputUl>li#S').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#S').css({'background-color' : 'gray'});
+        selectedItem = "S";
+    });
+
+     $('.inputUl>li#N').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#N').css({'background-color' : 'gray'});
+        selectedItem = "N";
+    });
+
+
+     $('.inputUl>li#Ar').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Ar').css({'background-color' : 'gray'});
+        selectedItem = "Ar";
+    });
+
+     $('.inputUl>li#Or').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Or').css({'background-color' : 'gray'});
+        selectedItem = "Or";
+    });
+
+     $('.inputUl>li#IsSharp').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#IsSharp').css({'background-color' : 'gray'});
+        selectedItem = "IsSharp";
+    });
+
+     $('.inputUl>li#A').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#A').css({'background-color' : 'gray'});
+        selectedItem = "A";
+    });
+
+    $('.inputUl>li#SixSharp').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#SixSharp').css({'background-color' : 'gray'});
+        selectedItem = "SixSharp";
+    });
+
+     $('.inputUl>li#Ii').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Ii').css({'background-color' : 'gray'});
+        selectedItem = "Ii";
+    });
+
+     $('.inputUl>li#Is').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Is').css({'background-color' : 'gray'});
+        selectedItem = "Is";
+    });
+
+     $('.inputUl>li#IiSharp').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#IiSharp').css({'background-color' : 'gray'});
+        selectedItem = "IiSharp";
+    });
+
+     $('.inputUl>li#B').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#B').css({'background-color' : 'gray'});
+        selectedItem = "B";
+    });
+
+     $('.inputUl>li#Go').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Go').css({'background-color' : 'gray'});
+        selectedItem = "Go";
+    });
+
+     $('.inputUl>li#Me').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Me').css({'background-color' : 'gray'});
+        selectedItem = "Me";
+    });
+
+     $('.inputUl>li#Gn').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Gn').css({'background-color' : 'gray'});
+        selectedItem = "Gn";
+    });
+
+     $('.inputUl>li#Pog').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#Pog').css({'background-color' : 'gray'});
+        selectedItem = "Pog";
+    });
+
+     $('.inputUl>li#TipofNose').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#TipofNose').css({'background-color' : 'gray'});
+        selectedItem = "TipofNose";
+    });
+
+     $('.inputUl>li#TipofJaw').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#TipofJaw').css({'background-color' : 'gray'});
+        selectedItem = "TipofJaw";
+    });
+
+     $('.inputUl>li#UpperLip').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#UpperLip').css({'background-color' : 'gray'});
+        selectedItem = "UpperLip";
+    });
+
+     $('.inputUl>li#LowerLip').on('click',function(){
+        $('.inputUl>li').css({'background-color' : 'lightgray'});
+        $('.inputUl>li#LowerLip').css({'background-color' : 'gray'});
+        selectedItem = "LowerLip";
+    });
+
+     $('.submitButton').on('click',function(){
+           // result page makeing 
+          dataCalculation();
+          $.each(calculationName,function(key, value){
+             var per = (calculationData[key] - meanValue[key])/sDeviation[key] * 100;
+             $('.resultCont').append("<li>"+value+"</li>");
+             $('.resultValue').append("<li>"+calculationData[key].toFixed(2)+"</li>");
+             $('.deviation').append("<li>"+per.toFixed(2)+"</li>");
+             $('.mean').append("<li>"+meanValue[key]+"</li>");
+             $('.sd').append("<li>"+sDeviation[key]+"</li>");
+          });
+          $('.measurePage').hide();
+          $('.resultPage').show();
+
+
+    });
+
+     $('.resultButton').on('click',function(){
+           // result page makeing
+          $('.resultPage').hide();
+          $('.measurePage').show();
+          
+
+    });
+    
+    $('.clearButton').on('click',function(){
+           // result page makeing
+        location.reload();
+          
+
+    });
+
+
+}); 
+
+</script>
+
+
+
+<title>SNU dentistry Lateral Cephalogram Analysis</title>
+
+</head>
+
+   <body>
+
+   <div class ="measurePage">
+
+     <div class="imageContainer">    
+          <a href="#" class="zoomplecross" id="atag"><img id="orignal" src="#" alt="" /></a>
+     </div>
+
+
+    <div class="menuContainer">
+
+      <div class="fileInput">
+        <input id="imgInp" type="file"/>
+      </div>
+
+      <div class="sliders">
+      <ul class="sliderUl">
+        <li>Contrast</li>
+        <li><div id="slider_contrast"></div></li>
+        <li>Brightness</li>
+        <li><div id="slider_level"></div></li>
+      </ul>
+      </div>
+
+
+      <div class="Buttons">
+
+        <div class="submitButton"><label>Submit</label></div>
+
+        <div class="clearButton"><label>Clear</label></div>
+
+      </div>
+
+
+      <div class="pointInput">
+
+
+        <section class = "inputButtons">
+
+          <ul class = "inputUl">
+           <li><label>Points</label></li>
+           <li id="refBallZero"><label>ref. Ball(0)</label></li>
+           <li id="refBallTen"><label>ref. Ball(10)</label></li>
+           <li id="Po"><label>Po</label></li>
+           <li id="S"><label>S</label></li>
+           <li id="N"><label>N</label></li>
+           <li id="Ar"><label>Ar</label></li>
+           <li id="Or"><label>Or</label></li>
+           <li id="IsSharp"><label>Is*</label></li>
+           <li id="A"><label>A</label></li>
+           <li id="SixSharp"><label>6*</label></li>
+           <li id="Ii"><label>Ii</label></li>
+           <li id="Is"><label>Is</label></li>
+           <li id="IiSharp"><label>Ii*</label></li>
+           <li id="B"><label>B</label></li>
+           <li id="Go"><label>Go</label></li>
+           <li id="Me"><label>Me</label></li>
+           <li id="Gn"><label>Gn</label></li>
+           <li id="Pog"><label>Pog</label></li>
+           <li id="TipofNose"><label>Tip of Nose</label></li>
+           <li id="TipofJaw"><label>Tip of Jaw</label></li>
+           <li id="UpperLip"><label>Upper Lip</label></li>
+           <li id="LowerLip"><label>Lower Lip</label></li>
+         </ul>
+
+          <ul class = "statusUl">
+           <li><label>Status</label></li>
+           <li id="refBallZero"><label>Not Measured</label></li>
+           <li id="refBallTen"><label>Not Measured</label></li>
+           <li id="Po"><label>Not Measured</label></li>
+           <li id="S"><label>Not Measured</label></li>
+           <li id="N"><label>Not Measured</label></li>
+           <li id="Ar"><label>Not Measured</label></li>
+           <li id="Or"><label>Not Measured</label></li>
+           <li id="IsSharp"><label>Not Measured</label></li>
+           <li id="A"><label>Not Measured</label></li>
+           <li id="SixSharp"><label>Not Measured</label></li>
+           <li id="Ii"><label>Not Measured</label></li>
+           <li id="Is"><label>Not Measured</label></li>
+           <li id="IiSharp"><label>Not Measured</label></li>
+           <li id="B"><label>Not Measured</label></li>
+           <li id="Go"><label>Not Measured</label></li>
+           <li id="Me"><label>Not Measured</label></li>
+           <li id="Gn"><label>Not Measured</label></li>
+           <li id="Pog"><label>Not Measured</label></li>
+           <li id="TipofNose"><label>Not Measured</label></li>
+           <li id="TipofJaw"><label>Not Measured</label></li>
+           <li id="UpperLip"><label>Not Measured</label></li>
+           <li id="LowerLip"><label>Not Measured</label></li>
+
+         </ul>
+
+
+
+       </section>
+
+
+      </div>
+
+
+
+      </div>
+    
+    
+    </div>
+
+  </div>
+  <div class='resultPage'>
+
+
+      <ul class = "resultCont">
+        <li>Contents</li>
+      </ul>
+      <ul class = "resultValue">
+        <li>Value</li>
+      </ul>
+      <ul class = "deviation">
+        <li>deviation(%)</li>
+      </ul>
+      <ul class = "mean">
+        <li>Mean</li>
+      </ul>
+      <ul class = "sd">
+        <li>S.D.</li>
+      </ul>
+
+      <div class="resultButton">
+        <div class="backb">Back</div>
+      </div>
+
+
+  <div>
+
+
+
+   </body>
+
+
+</html>
+
+
+
