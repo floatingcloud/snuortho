@@ -30,10 +30,10 @@ app.post('/result',function (request, response) {
  //       response.send(data.toString());
   //  });
 });
-
+var port = Number(process.env.PORT || 5000);
 
 
 // 서버를 실행합니다.
-http.createServer(app).listen(5000, function () {
+http.createServer(app).listen(port, function () {
     console.log('Server running at http://127.0.0.1:3000');
 });
